@@ -1,0 +1,11 @@
+<script>
+import ControllerAbstract from './core/controllerAbstract';
+
+export default {
+  name : 'controllerCategories',
+  extends : ControllerAbstract,
+  components:{
+    list : () => import('./categories/list'),
+  } 
+}
+</script>
