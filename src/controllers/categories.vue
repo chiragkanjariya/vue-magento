@@ -6,6 +6,8 @@ export default {
   extends : ControllerAbstract,
   components:{
     list : () => import('./categories/list'),
+    new : () => import('./categories/new'),
+    edit : () => import('./categories/edit'),
   } 
 }
 </script>
