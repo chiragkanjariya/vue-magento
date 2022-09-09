@@ -1,5 +1,3 @@
 export default {
-    global:[
-        { baseurl:'http://localhost:3000/'}
-    ]
+    baseurl:'http://localhost:3000/'
 }
