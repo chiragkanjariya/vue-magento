@@ -1,14 +1,11 @@
 import Axios from 'axios';
-import { response } from 'express';
 
 // make sure key will be the controller key passed in url
-const Model = {};
-Model.global = import('./../etc/constant')
 
 const CoreModel = {
-	data : {},
+	data : [],
 	endPoint : "",
-    getURL: "http://localhost:3000/",
+    baseURL: "http://localhost:3000/",
     component : null,
 
 	setComponent(component){
@@ -18,41 +15,22 @@ const CoreModel = {
 
     setEndPoint(newEndPoint){
         this.endPoint = newEndPoint
-        console.log(this.endPoint)
         return this
     },
-    setGetURL(Url){
-        this.getURL = Model.global.baseurl.this.endPoint
-        return this
-    },
+    // setGetURL(Url){
+    //     this.getURL = Model.global.baseurl.this.endPoint
+    //     return this
+    // },
     setPostURL(Url){
-        this.getURL = Url
+        this.baseURL = Url
         return this
     },
     setDeleteURL(Url){
-        this.getURL = Url
+        this.baseURL = Url
         return this
     },
     getGetURL(){
-        if(this.getURL){
-            return this.getURL
-        }else{
-            return Model.global.baseurl
-        }
-    },
-
-    getAll(){
-        Axios
-            .get(this.getGetURL())
-            .then(response=> {
-                this.data = response.data
-            })
-            .catch(error => {
-                console.error(error.message)
-            })
-            .finally(response => {
-                console.log('Get Request Completed.')
-            })
+        return this.baseURL+this.endPoint
     },
 
     get(request_id = null){
@@ -116,6 +94,20 @@ const CoreModel = {
 			console.log('data listed');
 		})
 	},
+
+    getAll(){
+        Axios
+            .get(this.getGetURL())
+            .then(response=> {
+                this.data = response.data
+            })
+            .catch(error => {
+                console.error(error.message)
+            })
+            .finally(response => {
+                console.log('Get Request Completed.')
+            })
+    },
 
     delete(request_id = null) {
 		Axios

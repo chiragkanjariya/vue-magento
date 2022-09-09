@@ -4,9 +4,11 @@
 
 <script>
 import LayoutConfig from './../../etc/layout';
+import Request from './request.vue';
 
 export default {
   name: 'controllerAbstract',
+  extends: Request,
   props:['front'],
   methods: {
     getActionComponent(){

@@ -55,9 +55,9 @@
 
 <script>
 import Template from "./../core/template";
-import store from "./../../store/admin";
-import Admin from "./../../models/admin";
+// import store from "./../../store/admin";
 import CoreModel from "./../../models/core";
+import Admin from "./../../models/admin";
 
 export default {
   name: "adminList",
@@ -73,11 +73,11 @@ export default {
   },
   methods: {
     setAdmins() {
-      CoreModel.setComponent(this).setEndPoint(`admin/`).setData();
+      CoreModel.setComponent(this).setEndPoint('admins/').setData();
       this.$nextTick(() => {});
     },
     deleteAdmin(id) {
-      const action = Admin.deleteAdmin(id);
+      const action = CoreModel.delete(id);
       if(action) {
         this.setAdmins();
       }
