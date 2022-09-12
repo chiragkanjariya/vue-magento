@@ -1,11 +1,11 @@
 import Axios from 'axios';
-
+import Global from './../etc/constant';
 // make sure key will be the controller key passed in url
 
 const CoreModel = {
 	data : [],
 	endPoint : "",
-    baseURL: "http://localhost:3000/",
+    baseURL: Global.baseurl,
     component : null,
 
 	setComponent(component){
@@ -47,9 +47,22 @@ const CoreModel = {
             })
     },
 
-    update(request_id = null, data = {}){
+	edit(request_id = null){
+		Axios
+		.get(`${this.getGetURL()}${request_id}`)
+		.then(response => {
+			this.component.data = response.data;
+		})
+		.catch(error => {
+			console.error(error.message);
+		})
+		.finally(response => {
+			console.log('admin listed');
+		})
+	},
+    update( data = {}){
         Axios
-		.patch(`${this.getGetURL()}${request_id}`, {
+		.patch(`${this.getGetURL()}${data.id}`, {
 			data
 		})
 		.then(response => {

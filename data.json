@@ -6,6 +6,20 @@
       "username": "ketan2230",
       "email": "kk@gmail.com",
       "phone": "84888"
+    },
+    {
+      "id": 9,
+      "name": "test12345",
+      "phone": "6515415451",
+      "email": "tesrtser@gmail.com",
+      "username": "as",
+      "data": {
+        "id": 9,
+        "name": "test12345",
+        "phone": "6515415451",
+        "email": "tesrtser@gmail.com",
+        "username": "asa"
+      }
     }
   ],
   "categories": [
