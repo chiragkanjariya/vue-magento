@@ -7,6 +7,9 @@ export default {
     };
   },
   methods: {
+    // getRequest() {
+    //   return this;
+    // },
     getPost(key) {
       return this;
     },
@@ -22,9 +25,9 @@ export default {
     isPost() {
       return true;
     },
-    // getRequestType() {
-    //   return type;
-    // },
+    getRequestType() {
+      return this;
+    },
   },
 };
 </script>
