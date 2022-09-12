@@ -48,6 +48,9 @@
               >
             </td>
           </tr>
+          <tr v-if="searchResults.length < 1">
+            <td colspan="3" class="text-center"><h3>No Records Found "{{searchText}}"</h3></td>
+          </tr>
         </tbody>
       </table>
     </div>
