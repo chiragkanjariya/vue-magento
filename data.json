@@ -5,27 +5,43 @@
       "name": "Ketan Vaghela",
       "username": "ketan2230",
       "email": "kk@gmail.com",
-      "phone": "84888"
+      "phone": "12345"
     },
     {
-      "id": 9,
-      "name": "test12345",
-      "phone": "6515415451",
-      "email": "tesrtser@gmail.com",
-      "username": "as",
-      "data": {
-        "id": 9,
-        "name": "test12345",
-        "phone": "6515415451",
-        "email": "tesrtser@gmail.com",
-        "username": "asa"
-      }
+      "id": 58,
+      "name": "shubham patel",
+      "phone": "84888",
+      "email": "shubham@gmail.com",
+      "username": "shubham123"
+    },
+    {
+      "id": 29,
+      "name": "zz",
+      "phone": "478",
+      "email": "zz",
+      "username": "zz"
     }
   ],
   "categories": [
     {
       "id": 71,
       "title": "Javascript"
+    },
+    {
+      "id": 21,
+      "title": "java"
+    },
+    {
+      "id": 49,
+      "title": "python"
+    },
+    {
+      "id": 78,
+      "title": "angular"
+    },
+    {
+      "id": 145,
+      "title": "ketan"
     }
   ]
 }
