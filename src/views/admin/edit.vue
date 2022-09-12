@@ -9,19 +9,19 @@
       <form>
         <div class="form-group w-25">
           <label>UserName</label>
-          <input type="text" v-model="admin.username" class="form-control">
+          <input type="text" v-model="data.username" class="form-control">
         </div>
         <div class="form-group w-25">
           <label>Name</label>
-          <input type="text" v-model="admin.name" class="form-control">
+          <input type="text" v-model="data.name" class="form-control">
         </div>
         <div class="form-group w-25">
           <label>Email </label>
-          <input type="text" v-model="admin.email" class="form-control">
+          <input type="text" v-model="data.email" class="form-control">
         </div>
         <div class="form-group w-25">
           <label>Phone Number </label>
-          <input type="text" v-model="admin.phone" class="form-control">
+          <input type="text" v-model="data.phone" class="form-control">
         </div>
         <div class="form-group">
           <a v-if="this.$route.params.action === 'edit'" class="btn btn-secondary btn-sm mr-2" @click="updateAdmin()">Update</a>
@@ -37,13 +37,14 @@
 import Template from './../core/template';
 import store from "./../../store/admin";
 import Admin from "./../../models/admin";
+import CoreModel from "./../../models/core";
 
 export default {
   name : 'ViewAdminEdit',
   extends : Template,
   data() {
     return {
-      admin : {
+      data : {
         name: '',
         email: '',
         phone: '',
@@ -54,7 +55,7 @@ export default {
   mounted() {
     if(this.$route.params.action === 'edit' && this.$route.params.id) {
       const adminId = this.$route.params.id
-      Admin.setComponent(this).editAdmin(adminId)
+      CoreModel.setComponent(this).setEndPoint('admins/').edit(adminId)
     }
 	},
   methods:{
@@ -66,7 +67,8 @@ export default {
     //   Admin.setComponent(this).setParams(params).setAdmin();
     // },
     updateAdmin() {
-      Admin.updateAdmin(this.admin)
+      console.log(this.data)
+      CoreModel.setEndPoint('admins/').update(this.data)
       this.$router.push('/admin/list');
       this.getLayout().getAction().key = Math.random()*100;
     },
@@ -74,12 +76,12 @@ export default {
       let params = {  
         // id: this.getLayout().getParams('id'),
         id: this.getLayout()._uid,
-        name : this.admin.name,
-        phone: this.admin.phone,
-        email: this.admin.email,
-        username: this.admin.username
+        name : this.data.name,
+        phone: this.data.phone,
+        email: this.data.email,
+        username: this.data.username
       }
-      Admin.setComponent(this).saveAdmin(params);
+      CoreModel.setComponent(this).setEndPoint('admins/').create(params);
       this.$router.push('/admin/list');
       this.getLayout().getAction().key = Math.random()*100;
     }
