@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="admin.id" v-for="admin in admins">
+          <tr :key="admin.id" v-for="admin in data">
             <td class="text-center">{{ admin.id }}</td>
             <td class="text-center">{{ admin.username }}</td>
             <td class="text-center">{{ admin.name }}</td>
@@ -55,7 +55,8 @@
 
 <script>
 import Template from "./../core/template";
-import store from "./../../store/admin";
+// import store from "./../../store/admin";
+import CoreModel from "./../../models/core";
 import Admin from "./../../models/admin";
 
 export default {
@@ -63,7 +64,7 @@ export default {
   extends: Template,
   data() {
     return {
-      admins: [],
+      data: [],
     };
   },
   computed: {},
@@ -72,11 +73,11 @@ export default {
   },
   methods: {
     setAdmins() {
-      Admin.setComponent(this).setAdmins();
+      CoreModel.setComponent(this).setEndPoint('admins/').setData();
       this.$nextTick(() => {});
     },
     deleteAdmin(id) {
-      const action = Admin.deleteAdmin(id);
+      const action = CoreModel.delete(id);
       if(action) {
         this.setAdmins();
       }

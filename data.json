@@ -8,28 +8,24 @@
       "phone": "84888"
     },
     {
-      "id": 48,
-      "name": "444",
-      "phone": "44",
-      "email": "444",
-      "username": "ketan55555"
-    },
-    {
-      "id": 69,
-      "name": "Shubham Patel",
-      "phone": "123456",
-      "email": "shubham@gmail.com",
-      "username": "shubham222"
+      "id": 9,
+      "name": "test12345",
+      "phone": "6515415451",
+      "email": "tesrtser@gmail.com",
+      "username": "as",
+      "data": {
+        "id": 9,
+        "name": "test12345",
+        "phone": "6515415451",
+        "email": "tesrtser@gmail.com",
+        "username": "asa"
+      }
     }
   ],
   "categories": [
     {
       "id": 71,
       "title": "Javascript"
-    },
-    {
-      "id": 100,
-      "title": "Python"
     }
   ]
 }

@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="category.id" v-for="category in categories">
+          <tr :key="category.id" v-for="category in data">
             <td class="text-center">{{ category.id }}</td>
             <td class="text-center">{{ category.title }}</td>
             <td class="text-center">
@@ -49,13 +49,14 @@
 <script>
 import Template from "./../core/template";
 import Category from "./../../models/category";
+import CoreModel from "./../../models/core";
 
 export default {
   name: "CategoriesList",
   extends: Template,
   data() {
     return {
-      categories: [],
+      data: [],
     };
   },
   computed: {},
@@ -64,11 +65,11 @@ export default {
   },
   methods: {
     setCategories() {
-      Category.setComponent(this).setCategories();
+      CoreModel.setComponent(this).setEndPoint('categories/').setData();
       this.$nextTick(() => {});
     },
     deleteCategory(id) {
-      const action = Category.deleteCategory(id);
+      const action = CoreModel.delete(id);
       if(action) {
         this.setCategories();
       }
