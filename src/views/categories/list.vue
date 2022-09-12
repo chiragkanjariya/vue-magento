@@ -23,21 +23,26 @@
       <table class="table table-bordered table-fixed">
         <thead>
           <tr>
-            <th class="w-auto text-center">Id</th>
-            <th class="w-auto text-center">Title</th>
+            <th class="w-auto text-center clickable" @click="sort('id')">Id</th>
+            <th class="w-auto text-center clickable" @click="sort('title')">Title</th>
+            <th class="w-auto text-center">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr :key="category.id" v-for="category in data">
-            <td class="text-center">{{ category.id }}</td>
-            <td class="text-center">{{ category.title }}</td>
+            <td class="text-center" >{{ category.id }}</td>
+            <td class="text-center" >{{ category.title }}</td>
             <td class="text-center">
               <router-link
                 :to="`/categories/edit/id/` + category.id"
                 class="btn btn-secondary btn-sm mr-2"
                 >EDIT</router-link
               >
-              <a class="btn btn-secondary btn-sm" @click="deleteCategory(category.id)">DELETE</a>
+              <a
+                class="btn btn-secondary btn-sm"
+                @click="deleteCategory(category.id)"
+                >DELETE</a
+              >
             </td>
           </tr>
         </tbody>
@@ -57,23 +62,44 @@ export default {
   data() {
     return {
       data: [],
+      sortDir: 'DESC'
     };
   },
-  computed: {},
   created() {
     this.setCategories();
   },
   methods: {
     setCategories() {
-      CoreModel.setComponent(this).setEndPoint('categories/').setData();
+      CoreModel.setComponent(this).setEndPoint("categories/").setData();
       this.$nextTick(() => {});
+    },
+    sort(key){
+      let data = this.data
+      data = data.sort((a, b) => {
+        let fa = key !== 'id' ? a[key].toLowerCase() : a[key],
+          fb = key !== 'id' ? b[key].toLowerCase() : b[key];
+        if (fa < fb) {
+          return this.sortDir === 'ASC' ? -1 : 1;
+        }
+        if (fa > fb) {
+          return this.sortDir === 'ASC' ? 1 : -1;
+        }
+        return 0;
+      });
+      this.sortDir = this.sortDir === 'ASC' ? 'DESC' : 'ASC'
     },
     deleteCategory(id) {
       const action = CoreModel.delete(id);
-      if(action) {
+      if (action) {
         this.setCategories();
       }
     },
   },
 };
 </script>
+
+<style>
+.clickable {
+  cursor: pointer;
+}
+</style>
