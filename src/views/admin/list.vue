@@ -70,7 +70,7 @@
 <script>
 import Template from "./../core/template";
 // import store from "./../../store/admin";
-import CoreModel from "./../../models/core";
+import CoreModel from "../../models/core/core";
 import Admin from "./../../models/admin";
 
 export default {
@@ -80,9 +80,12 @@ export default {
     return {
       data: [],
       ortDir: "DESC",
-      searchText: '',
+      searchText: ''
     };
   },
+  mounted() {
+    Admin.setComponent(this)  
+    },
   computed: {
     searchResults() {
       if (!this.searchText) return this.data;
@@ -101,34 +104,18 @@ export default {
   },
   methods: {
     setAdmins() {
-      CoreModel.setComponent(this).setEndPoint("admins/").setData();
+      Admin.setAdminData();
       this.$nextTick(() => {});
     },
     deleteAdmin(id) {
-      const action = CoreModel.delete(id);
-      if (action) {
+      const action = Admin.admindelete(id);
+      if(action) {
         this.setAdmins();
       }
-    },
-    sort(key) {
-      let data = this.data;
-      data = data.sort((a, b) => {
-        let fa = key !== "id" ? a[key].toLowerCase() : a[key],
-          fb = key !== "id" ? b[key].toLowerCase() : b[key];
-        if (fa < fb) {
-          return this.sortDir === "ASC" ? -1 : 1;
-        }
-        if (fa > fb) {
-          return this.sortDir === "ASC" ? 1 : -1;
-        }
-        return 0;
-      });
-      this.sortDir = this.sortDir === "ASC" ? "DESC" : "ASC";
     },
   },
 };
 </script>
-
 <style>
 .clickable {
   cursor: pointer;
