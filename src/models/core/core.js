@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import Global from './../etc/constant';
+import Global from './../../etc/constant';
 // make sure key will be the controller key passed in url
 
 const CoreModel = {
