@@ -1,36 +1,51 @@
 import Axios from 'axios';
 import Global from './../../etc/constant';
-// make sure key will be the controller key passed in url
 
 const CoreModel = {
 	data : [],
 	endPoint : "",
     baseURL: Global.baseurl,
-    component : null,
-
+	Url : '',
+	getURL: '',
 	setComponent(component){
 		this.component = component;
 		return this;
 	},
 
-    setEndPoint(newEndPoint){
+    setEndPoint(newEndPoint) {
         this.endPoint = newEndPoint
         return this
     },
-    // setGetURL(Url){
-    //     this.getURL = Model.global.baseurl.this.endPoint
-    //     return this
-    // },
-    setPostURL(Url){
-        this.baseURL = Url
+    setGetURL(Url = ""){
+		if(Url){
+			this.getURL = this.baseURL + this.endPoint + Url
+		}
+		else{
+			this.getURL = this.baseURL + this.endPoint
+			console.log(this.getURL)
+		}
         return this
     },
-    setDeleteURL(Url){
-        this.baseURL = Url
+    setPostURL(Url = ""){
+        if(Url){
+			this.getURL = this.baseURL + this.endPoint + Url
+		}
+		else{
+			this.getURL = this.baseURL + this.endPoint
+		}
+        return this
+    },
+    setDeleteURL(Url = ""){
+        if(Url){
+			this.getURL = this.baseURL + this.endPoint + Url
+		}
+		else{
+			this.getURL = this.baseURL + this.endPoint
+		}
         return this
     },
     getGetURL(){
-        return this.baseURL+this.endPoint
+        return this.baseURL + 'admins/'
     },
 
     get(request_id = null){
@@ -47,7 +62,7 @@ const CoreModel = {
             })
     },
 
-	edit(request_id = null){
+	find(request_id = null){
 		Axios
 		.get(`${this.getGetURL()}${request_id}`)
 		.then(response => {
@@ -83,6 +98,7 @@ const CoreModel = {
 		.post(this.getGetURL(), data)
 		.then(response => {
 			if(response.status === 201) {
+				console.log("Test purpose")
 				this.setData()
 			}
 		})
@@ -95,6 +111,7 @@ const CoreModel = {
 	},
 
     setData(){
+		console.log(this.component)
 		Axios
 		.get(this.getGetURL())
 		.then(response => {
@@ -108,7 +125,7 @@ const CoreModel = {
 		})
 	},
 
-    getAll(){
+    findAll(){
         Axios
             .get(this.getGetURL())
             .then(response=> {
