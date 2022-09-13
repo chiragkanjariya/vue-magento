@@ -97,17 +97,20 @@ export default {
     },
   },
   mounted() {
-    Admin.setComponent(this).setAdminEndPoint()
+    Admin.setComponent(this)
+    Admin.setAdminEndPoint()
   },
   created() {
     this.setAdmins();
   },
   methods: {
     setAdmins() {
+      Admin.setAdminEndPoint()
       Admin.setAdminData();
       this.$nextTick(() => {});
     },
     deleteAdmin(id) {
+      Admin.setAdminEndPoint()
       const action = Admin.admindelete(id);
       if (action) {
         this.setAdmins();
