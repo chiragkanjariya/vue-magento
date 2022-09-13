@@ -76,9 +76,7 @@ const CoreModel = {
 	},
     update( data = {}){
         Axios
-		.patch(`${this.getGetURL()}${data.id}`, {
-			data
-		})
+		.patch(`${this.getGetURL()}${data.id}`, data)
 		.then(response => {
 			if(response.status === 200) {
 				this.setData()
@@ -110,7 +108,6 @@ const CoreModel = {
 	},
 
     setData(){
-		console.log(this.component)
 		Axios
 		.get(this.getGetURL())
 		.then(response => {

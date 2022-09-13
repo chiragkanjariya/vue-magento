@@ -2,38 +2,17 @@
   "admins": [
     {
       "id": 1,
-      "name": "Ketan Vaghela",
+      "name": "Ketan",
       "username": "ketan2230",
       "email": "kk@gmail.com",
-      "phone": "12345",
-      "data": {
-        "id": 1,
-        "name": "Ketan Vaghela",
-        "username": "ketan2230",
-        "email": "kk@gmail.com",
-        "phone": "1234",
-        "data": {
-          "id": 1,
-          "name": "Ketan Vaghel",
-          "username": "ketan2230",
-          "email": "kk@gmail.com",
-          "phone": "12345"
-        }
-      }
+      "phone": "12345"
     },
     {
-      "id": 58,
-      "name": "shubham patel",
-      "phone": "84888",
-      "email": "shubham@gmail.com",
-      "username": "shubham123",
-      "data": {
-        "id": 58,
-        "name": "shubham patel",
-        "phone": "84888",
-        "email": "shubham@gmail.com",
-        "username": "shubham123"
-      }
+      "id": 92,
+      "name": "kkkkk",
+      "phone": "mmm",
+      "email": "mmmm",
+      "username": "mmm"
     }
   ],
   "categories": [
@@ -51,7 +30,7 @@
     },
     {
       "id": 145,
-      "title": "ketan"
+      "title": "JS"
     }
   ]
 }

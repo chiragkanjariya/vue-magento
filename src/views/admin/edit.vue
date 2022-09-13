@@ -37,7 +37,6 @@
 import Template from './../core/template';
 import store from "./../../store/admin";
 import Admin from "./../../models/admin";
-import CoreModel from "./../../models/core/core";
 
 export default {
   name : 'ViewAdminEdit',
@@ -45,6 +44,7 @@ export default {
   data() {
     return {
       data : {
+        id: '',
         name: '',
         email: '',
         phone: '',
@@ -71,7 +71,7 @@ export default {
     // },
     updateAdmin() {
       Admin.setAdminEndPoint()
-      Admin.adminupdate(this.data)
+      Admin.adminUpdate(this.data)
       this.$router.push('/admin/list');
       this.getLayout().getAction().key = Math.random()*100;
     },

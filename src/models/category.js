@@ -20,7 +20,7 @@ const Category = {
 	categorydelete(request_id){
 		CoreModel.delete(request_id)
 	},
-	categoryupdate(data = {}){
+	categoryUpdate(data = {}){
 		CoreModel.update(data)
 	},
 	editCategory(request_id){
