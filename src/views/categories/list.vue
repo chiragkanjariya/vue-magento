@@ -1,75 +1,33 @@
 <template>
   <div>
-    <div class="container py-1 mb-3">
-      <h4>
-        Manage Categories
-        <input type="text" v-model="searchText" name="search" class="formfield" placeholder="Search Text" />
-        <router-link
-          to="/categories/new"
-          class="btn btn-secondary btn-sm float-right"
-          role="button"
-          aria-pressed="true"
-          >ADD NEW</router-link
-        >
-        <router-link
-          to="/categories/wrong"
-          class="btn btn-secondary btn-sm float-right mr-1"
-          role="button"
-          aria-pressed="true"
-          >WRONG</router-link
-        >
-      </h4>
-    </div>
-    <div>
-      <table class="table table-bordered table-fixed">
-        <thead>
-          <tr>
-            <th class="w-auto text-center clickable" @click="sort('id')">Id</th>
-            <th class="w-auto text-center clickable" @click="sort('title')">
-              Title
-            </th>
-            <th class="w-auto text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr :key="category.id" v-for="category in searchResults">
-            <td class="text-center">{{ category.id }}</td>
-            <td class="text-center">{{ category.title }}</td>
-            <td class="text-center">
-              <router-link
-                :to="`/categories/edit/id/` + category.id"
-                class="btn btn-secondary btn-sm mr-2"
-                >EDIT</router-link
-              >
-              <a
-                class="btn btn-secondary btn-sm"
-                @click="deleteCategory(category.id)"
-                >DELETE</a
-              >
-            </td>
-          </tr>
-          <tr v-if="searchResults.length < 1">
-            <td colspan="3" class="text-center"><h3>No Records Found "{{searchText}}"</h3></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <CommonHeader :searchText="searchText" :pageType="'Category'" @setSearchText="setSearchText" />
+    <CommonTable :searchText="searchText" :tableHeaders="headers" :tableData="searchResults" :pageType="'categories'" @delete="deleteCategory" />
   </div>
 </template>
 
 <script>
 import Template from "./../core/template";
 import Category from "./../../models/category";
-import CoreModel from "./../../models/core";
+import CommonHeader from "./../common/header.vue"
+import CommonTable from "./../common/table.vue"
 
 export default {
   name: "CategoriesList",
   extends: Template,
+  components: {
+    CommonHeader,
+    CommonTable
+  },
   data() {
     return {
       data: [],
       sortDir: "DESC",
       searchText: '',
+      headers: [
+        {key: 'id', text: 'Id'},
+        {key: 'title', text: 'Title'},
+        {key: 'action', text: 'Action'}
+      ]
     };
   },
   computed: {
@@ -87,8 +45,13 @@ export default {
   },
   methods: {
     setCategories() {
-      CoreModel.setComponent(this).setEndPoint("categories/").setData();
+      Category.setComponent(this);
+      Category.setCategoriesEndPoint();
+      Category.setCategoryData();
       this.$nextTick(() => {});
+    },
+    setSearchText(text){
+      this.searchText=text
     },
     sort(key) {
       let data = this.data;
@@ -106,7 +69,8 @@ export default {
       this.sortDir = this.sortDir === "ASC" ? "DESC" : "ASC";
     },
     deleteCategory(id) {
-      const action = CoreModel.delete(id);
+      Category.setCategoriesEndPoint();
+      const action = Category.categorydelete(id);
       if (action) {
         this.setCategories();
       }
@@ -118,10 +82,5 @@ export default {
 <style>
 .clickable {
   cursor: pointer;
-}
-.formfield {
-  font-size: 18px;
-  margin-left: 200px;
-  padding: 4px;
 }
 </style>

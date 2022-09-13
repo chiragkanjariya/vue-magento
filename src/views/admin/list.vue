@@ -1,86 +1,41 @@
 <template>
   <div>
-    <div class="container py-1 mb-3">
-      <h4>
-        Manage Admins
-        <input type="text" v-model="searchText" name="search" class="formfield" placeholder="Search Text" />
-        <router-link
-          to="/admin/new"
-          class="btn btn-secondary btn-sm float-right"
-          role="button"
-          aria-pressed="true"
-          >ADD NEW</router-link
-        >
-        <router-link
-          to="/admin/wrong"
-          class="btn btn-secondary btn-sm float-right mr-1"
-          role="button"
-          aria-pressed="true"
-          >WRONG</router-link
-        >
-      </h4>
-    </div>
-    <div>
-      <table class="table table-bordered table-fixed">
-        <thead>
-          <tr>
-            <th class="w-auto text-center clickable" @click="sort('id')">Id</th>
-            <th class="w-auto text-center clickable" @click="sort('username')">
-              UserName
-            </th>
-            <th class="w-auto text-center clickable" @click="sort('name')">
-              Name
-            </th>
-            <th class="w-auto text-center clickable" @click="sort('email')">
-              Email
-            </th>
-            <th class="w-auto text-center clickable" @click="sort('phone')">
-              Phone Number
-            </th>
-            <th class="w-auto text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr :key="admin.id" v-for="admin in searchResults">
-            <td class="text-center">{{ admin.id }}</td>
-            <td class="text-center">{{ admin.username }}</td>
-            <td class="text-center">{{ admin.name }}</td>
-            <td class="text-center">{{ admin.email }}</td>
-            <td class="text-center">{{ admin.phone }}</td>
-            <td class="text-center">
-              <router-link
-                :to="`/admin/edit/id/` + admin.id"
-                class="btn btn-secondary btn-sm mr-2"
-                >EDIT</router-link
-              >
-              <a class="btn btn-secondary btn-sm" @click="deleteAdmin(admin.id)"
-                >DELETE</a
-              >
-            </td>
-          </tr>
-          <tr v-if="searchResults.length < 1">
-            <td colspan="6" class="text-center"><h3>No Records Found "{{searchText}}"</h3></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <CommonHeader
+      :searchText="searchText"
+      :pageType="'Admin'"
+      @setSearchText="setSearchText"
+    />
+    <CommonTable :searchText="searchText" :tableHeaders="headers" :tableData="searchResults" :pageType="'admin'" @delete="deleteAdmin" />
   </div>
 </template>
 
 <script>
 import Template from "./../core/template";
 // import store from "./../../store/admin";
-import CoreModel from "./../../models/core";
 import Admin from "./../../models/admin";
+import CommonHeader from "./../common/header.vue";
+import CommonTable from "./../common/table.vue";
 
 export default {
   name: "adminList",
   extends: Template,
+  components: {
+    CommonHeader,
+    CommonTable
+  },
   data() {
     return {
       data: [],
       ortDir: "DESC",
-      searchText: '',
+      searchText: "",
+      headers: [
+        {key: 'id', text: 'Id'},
+        {key: 'name', text: 'Name'},
+        {key: 'username', text: 'UserName'},
+        {key: 'email', text: 'Email'},
+        {key: 'phone', text: 'Phone'},
+        {key: 'action', text: 'Action'},
+      ]
     };
   },
   computed: {
@@ -101,11 +56,17 @@ export default {
   },
   methods: {
     setAdmins() {
-      CoreModel.setComponent(this).setEndPoint("admins/").setData();
+      Admin.setComponent(this);
+      Admin.setAdminEndPoint();
+      Admin.setAdminData();
       this.$nextTick(() => {});
     },
+    setSearchText(text) {
+      this.searchText = text;
+    },
     deleteAdmin(id) {
-      const action = CoreModel.delete(id);
+      Admin.setAdminEndPoint();
+      const action = Admin.admindelete(id);
       if (action) {
         this.setAdmins();
       }
@@ -128,14 +89,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.clickable {
-  cursor: pointer;
-}
-.formfield {
-  font-size: 18px;
-  margin-left: 200px;
-  padding: 4px;
-}
-</style>

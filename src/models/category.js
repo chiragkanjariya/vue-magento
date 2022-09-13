@@ -1,131 +1,163 @@
-import Axios from 'axios';
+import CoreModel from './core/core';
 
 const Category = {
-	params : {},
 	component : null,
-
 	setComponent(component){
-		this.component = component;
-		return this;
+		CoreModel.setComponent(component)
 	},
-
-	setParams(params){
-		let f = new FormData();
-		for (const [k1, v1] of Object.entries(params)) {
-				if(typeof v1 === 'object'){
-					for (const [k2, v2] of Object.entries(v1)) {
-						if(typeof v2 === 'object'){
-							for (const [k3, v3] of Object.entries(v2)) {
-									f.append(`${k1}[${k2}][${k3}]`,v3);    
-							}
-						}
-					else{
-						f.append(`${k1}[${k2}]`,v2);
-					}
-				}
-			}
-			else{
-				f.append(k1,v1);
-			}
-		}
-		this.params = f;
-		return this;
+	setCategoriesEndPoint(){
+		CoreModel.setEndPoint('categories/')
 	},
-
-	setCategories(){
-		Axios
-		.get('http://localhost:3000/categories')
-		.then(response => {
-			this.component.categories = response.data;
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-		.finally(response => {
-			console.log('category listed');
-		})
+	createCategories(params){
+		CoreModel.create(params)
 	},
-
-	setCategory(){
-		Axios
-		.post('http://localhost:3000/categories', this.params)
-		.then(response => {
-			this.component.category = response.data;
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-		.finally(response => {
-			console.log('category listed');
-		})
+	findCategories(request_id){
+		CoreModel.find(request_id)
 	},
-
-	saveCategory(categoryData){
-		Axios
-		.post('http://localhost:3000/categories', categoryData)
-		.then(response => {
-			if(response.status === 201) {
-				alert("Data Added Successfully")
-				this.setCategories()
-			}
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-		.finally(response => {
-			console.log('category listed');
-		})
+	setCategoryData(){
+		CoreModel.setData()
 	},
-
-	editCategory(id){
-		Axios
-		.get(`http://localhost:3000/categories/${id}`)
-		.then(response => {
-			this.component.category = response.data;
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-		.finally(response => {
-			console.log('category listed');
-		})
+	categorydelete(request_id){
+		CoreModel.delete(request_id)
 	},
-
-	updateCategory(categoryData) {
-		Axios
-		.patch(`http://localhost:3000/categories/${categoryData.id}`, {
-			title: categoryData.title,
-		})
-		.then(response => {
-			if(response.status === 200) {
-				alert("Data Updated Successfully")
-				this.setCategories()
-			}
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-		.finally(response => {
-			console.log('category listed');
-		})
+	categoryUpdate(data = {}){
+		CoreModel.update(data)
 	},
-
-	deleteCategory(id) {
-		Axios
-		.delete(`http://localhost:3000/categories/${id}`)
-		.then(response => {
-			if(response.status === 200){
-				alert('Data Deleted SuccessFully')
-				this.setCategories()
-			}
-		})
-		.catch(error => {
-			console.error(error.message);
-		})
-		.finally(response => {
-			console.log('category listed');
-		})
+	editCategory(request_id){
+		CoreModel.find(request_id)
 	}
 }
 
 export default Category;
+
+// import Axios from 'axios';
+
+// const Category = {
+// 	params : {},
+// 	component : null,
+
+// 	setComponent(component){
+// 		this.component = component;
+// 		return this;
+// 	},
+
+// 	setParams(params){
+// 		let f = new FormData();
+// 		for (const [k1, v1] of Object.entries(params)) {
+// 				if(typeof v1 === 'object'){
+// 					for (const [k2, v2] of Object.entries(v1)) {
+// 						if(typeof v2 === 'object'){
+// 							for (const [k3, v3] of Object.entries(v2)) {
+// 									f.append(`${k1}[${k2}][${k3}]`,v3);    
+// 							}
+// 						}
+// 					else{
+// 						f.append(`${k1}[${k2}]`,v2);
+// 					}
+// 				}
+// 			}
+// 			else{
+// 				f.append(k1,v1);
+// 			}
+// 		}
+// 		this.params = f;
+// 		return this;
+// 	},
+
+// 	setCategories(){
+// 		Axios
+// 		.get('http://localhost:3000/categories')
+// 		.then(response => {
+// 			this.component.categories = response.data;
+// 		})
+// 		.catch(error => {
+// 			console.error(error.message);
+// 		})
+// 		.finally(response => {
+// 			console.log('category listed');
+// 		})
+// 	},
+
+// 	setCategory(){
+// 		Axios
+// 		.post('http://localhost:3000/categories', this.params)
+// 		.then(response => {
+// 			this.component.category = response.data;
+// 		})
+// 		.catch(error => {
+// 			console.error(error.message);
+// 		})
+// 		.finally(response => {
+// 			console.log('category listed');
+// 		})
+// 	},
+
+// 	saveCategory(categoryData){
+// 		Axios
+// 		.post('http://localhost:3000/categories', categoryData)
+// 		.then(response => {
+// 			if(response.status === 201) {
+// 				alert("Data Added Successfully")
+// 				this.setCategories()
+// 			}
+// 		})
+// 		.catch(error => {
+// 			console.error(error.message);
+// 		})
+// 		.finally(response => {
+// 			console.log('category listed');
+// 		})
+// 	},
+
+// 	editCategory(id){
+// 		Axios
+// 		.get(`http://localhost:3000/categories/${id}`)
+// 		.then(response => {
+// 			this.component.category = response.data;
+// 		})
+// 		.catch(error => {
+// 			console.error(error.message);
+// 		})
+// 		.finally(response => {
+// 			console.log('category listed');
+// 		})
+// 	},
+
+// 	updateCategory(categoryData) {
+// 		Axios
+// 		.patch(`http://localhost:3000/categories/${categoryData.id}`, {
+// 			title: categoryData.title,
+// 		})
+// 		.then(response => {
+// 			if(response.status === 200) {
+// 				alert("Data Updated Successfully")
+// 				this.setCategories()
+// 			}
+// 		})
+// 		.catch(error => {
+// 			console.error(error.message);
+// 		})
+// 		.finally(response => {
+// 			console.log('category listed');
+// 		})
+// 	},
+
+// 	deleteCategory(id) {
+// 		Axios
+// 		.delete(`http://localhost:3000/categories/${id}`)
+// 		.then(response => {
+// 			if(response.status === 200){
+// 				alert('Data Deleted SuccessFully')
+// 				this.setCategories()
+// 			}
+// 		})
+// 		.catch(error => {
+// 			console.error(error.message);
+// 		})
+// 		.finally(response => {
+// 			console.log('category listed');
+// 		})
+// 	}
+// }
+
+// export default Category;

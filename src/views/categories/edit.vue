@@ -9,7 +9,7 @@
       <form>
         <div class="form-group w-25">
           <label>Category Name</label>
-          <input type="text" v-model="category.title" class="form-control">
+          <input type="text" v-model="data.title" class="form-control">
         </div>
         <div class="form-group">
           <a v-if="this.$route.params.action === 'edit'" class="btn btn-secondary btn-sm mr-2" @click="updateCategory()">Update</a>
@@ -24,27 +24,31 @@
 <script>
 import Template from './../core/template';
 import Category from "./../../models/category";
-import CoreModel from "./../../models/core";
+import CoreModel from "./../../models/core/core";
 
 export default {
   name : 'ViewCategoriesEdit',
   extends : Template,
   data() {
     return {
-      category : {
-        title: ''
+      data : {
+        title: '',
+        id:''
       }
     }
   },
   mounted() {
+    Category.setComponent(this)
     if(this.$route.params.action === 'edit' && this.$route.params.id) {
       const categoryId = this.$route.params.id
-      Category.setComponent(this).editCategory(categoryId)
+      Category.setCategoriesEndPoint()
+      Category.editCategory(categoryId)
     }
 	},
   methods:{
     updateCategory() {
-      CoreModel.setEndPoint('categories/').update(this.category)
+      Category.setCategoriesEndPoint()
+      Category.categoryUpdate(this.data)
       this.$router.push('/categories/list');
       this.getLayout().getAction().key = Math.random()*100;
     },
@@ -53,7 +57,8 @@ export default {
         id: this.getLayout()._uid,
         title : this.category.title,
       }
-      CoreModel.setComponent(this).setEndPoint('categories/').create(params);
+      Category.setCategoriesEndPoint().
+      Category.createCategories(params);
       this.$router.push('/categories/list');
       this.getLayout().getAction().key = Math.random()*100;
     }

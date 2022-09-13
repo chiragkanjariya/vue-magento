@@ -37,7 +37,6 @@
 import Template from './../core/template';
 import store from "./../../store/admin";
 import Admin from "./../../models/admin";
-import CoreModel from "./../../models/core";
 
 export default {
   name : 'ViewAdminEdit',
@@ -45,6 +44,7 @@ export default {
   data() {
     return {
       data : {
+        id: '',
         name: '',
         email: '',
         phone: '',
@@ -53,9 +53,12 @@ export default {
     }
   },
   mounted() {
+    Admin.setComponent(this)
+    Admin.setAdminEndPoint()
     if(this.$route.params.action === 'edit' && this.$route.params.id) {
       const adminId = this.$route.params.id
-      CoreModel.setComponent(this).setEndPoint('admins/').edit(adminId)
+       Admin.setAdminEndPoint()
+      Admin.findAdmin(adminId)
     }
 	},
   methods:{
@@ -67,8 +70,8 @@ export default {
     //   Admin.setComponent(this).setParams(params).setAdmin();
     // },
     updateAdmin() {
-      console.log(this.data)
-      CoreModel.setEndPoint('admins/').update(this.data)
+      Admin.setAdminEndPoint()
+      Admin.adminUpdate(this.data)
       this.$router.push('/admin/list');
       this.getLayout().getAction().key = Math.random()*100;
     },
@@ -81,7 +84,8 @@ export default {
         email: this.data.email,
         username: this.data.username
       }
-      CoreModel.setComponent(this).setEndPoint('admins/').create(params);
+      Admin.setAdminEndPoint()
+      Admin.createAdmin(params);
       this.$router.push('/admin/list');
       this.getLayout().getAction().key = Math.random()*100;
     }
