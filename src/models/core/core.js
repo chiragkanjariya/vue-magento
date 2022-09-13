@@ -11,7 +11,6 @@ const CoreModel = {
 		this.component = component;
 		return this;
 	},
-
     setEndPoint(newEndPoint) {
         this.endPoint = newEndPoint
         return this
@@ -45,7 +44,7 @@ const CoreModel = {
         return this
     },
     getGetURL(){
-        return this.baseURL + 'admins/'
+        return this.baseURL + this.endPoint
     },
 
     get(request_id = null){

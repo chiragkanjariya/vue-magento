@@ -5,6 +5,9 @@ const Category = {
 	setComponent(component){
 		CoreModel.setComponent(component)
 	},
+	setCategoriesEndPoint(){
+		CoreModel.setEndPoint('categories/')
+	},
 	createCategories(params){
 		CoreModel.create(params)
 	},
@@ -19,6 +22,9 @@ const Category = {
 	},
 	categoryupdate(data = {}){
 		CoreModel.update(data)
+	},
+	editCategory(request_id){
+		CoreModel.find(request_id)
 	}
 }
 
