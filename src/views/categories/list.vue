@@ -54,7 +54,7 @@
 <script>
 import Template from "./../core/template";
 import Category from "./../../models/category";
-import CoreModel from "./../../models/core";
+import CoreModel from "./../../models/core/core";
 
 export default {
   name: "CategoriesList",
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     setCategories() {
-      CoreModel.setComponent(this).setEndPoint("categories/").setData();
+      CoreModel.setCategoryData();
       this.$nextTick(() => {});
     },
     sort(key){
@@ -89,7 +89,7 @@ export default {
       this.sortDir = this.sortDir === 'ASC' ? 'DESC' : 'ASC'
     },
     deleteCategory(id) {
-      const action = CoreModel.delete(id);
+      const action = Category.categorydelete(id);
       if (action) {
         this.setCategories();
       }

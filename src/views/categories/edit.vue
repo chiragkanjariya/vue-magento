@@ -24,7 +24,7 @@
 <script>
 import Template from './../core/template';
 import Category from "./../../models/category";
-import CoreModel from "./../../models/core";
+import CoreModel from "./../../models/core/core";
 
 export default {
   name : 'ViewCategoriesEdit',
@@ -37,14 +37,15 @@ export default {
     }
   },
   mounted() {
+    Category.setComponent(this)
     if(this.$route.params.action === 'edit' && this.$route.params.id) {
       const categoryId = this.$route.params.id
-      Category.setComponent(this).editCategory(categoryId)
+      Category.editCategory(categoryId)
     }
 	},
   methods:{
     updateCategory() {
-      CoreModel.setEndPoint('categories/').update(this.category)
+      CoreModel.categoryupdate(this.category)
       this.$router.push('/categories/list');
       this.getLayout().getAction().key = Math.random()*100;
     },
@@ -53,7 +54,7 @@ export default {
         id: this.getLayout()._uid,
         title : this.category.title,
       }
-      CoreModel.setComponent(this).setEndPoint('categories/').create(params);
+      CoreModel.createCategories(params);
       this.$router.push('/categories/list');
       this.getLayout().getAction().key = Math.random()*100;
     }

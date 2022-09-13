@@ -23,11 +23,11 @@
       <table class="table table-bordered table-fixed">
         <thead>
           <tr>
-            <th class="w-auto text-center clickable" @click="sort('id')">Id</th>
-            <th class="w-auto text-center clickable" @click="sort('username')">UserName</th>
-            <th class="w-auto text-center clickable" @click="sort('name')">Name</th>
-            <th class="w-auto text-center clickable" @click="sort('email')">Email</th>
-            <th class="w-auto text-center clickable" @click="sort('phone')">Phone Number</th>
+            <th class="w-auto text-center">Id</th>
+            <th class="w-auto text-center">UserName</th>
+            <th class="w-auto text-center">Name</th>
+            <th class="w-auto text-center">Email</th>
+            <th class="w-auto text-center">Phone Number</th>
             <th class="w-auto text-center">Action</th>
           </tr>
         </thead>
@@ -56,7 +56,7 @@
 <script>
 import Template from "./../core/template";
 // import store from "./../../store/admin";
-import CoreModel from "./../../models/core";
+import CoreModel from "../../models/core/core";
 import Admin from "./../../models/admin";
 
 export default {
@@ -65,45 +65,26 @@ export default {
   data() {
     return {
       data: [],
-      ortDir: 'DESC'
     };
   },
   computed: {},
+  mounted() {
+    Admin.setComponent(this)
+  },
   created() {
     this.setAdmins();
   },
   methods: {
     setAdmins() {
-      CoreModel.setComponent(this).setEndPoint('admins/').setData();
+      Admin.setAdminData();
       this.$nextTick(() => {});
     },
     deleteAdmin(id) {
-      const action = CoreModel.delete(id);
+      const action = Admin.admindelete(id);
       if(action) {
         this.setAdmins();
       }
     },
-    sort(key){
-      let data = this.data
-      data = data.sort((a, b) => {
-        let fa = key !== 'id' ? a[key].toLowerCase() : a[key],
-          fb = key !== 'id' ? b[key].toLowerCase() : b[key];
-        if (fa < fb) {
-          return this.sortDir === 'ASC' ? -1 : 1;
-        }
-        if (fa > fb) {
-          return this.sortDir === 'ASC' ? 1 : -1;
-        }
-        return 0;
-      });
-      this.sortDir = this.sortDir === 'ASC' ? 'DESC' : 'ASC'
-    },
   },
 };
 </script>
-
-<style>
-.clickable {
-  cursor: pointer;
-}
-</style>
