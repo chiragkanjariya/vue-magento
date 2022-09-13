@@ -5,6 +5,9 @@ const Admin = {
 	setComponent(component){
 		CoreModel.setComponent(component)
 	},
+	setAdminEndPoint(){
+		CoreModel.setEndPoint('admins/')
+	},
 	createAdmin(params){
 		CoreModel.create(params)
 	},

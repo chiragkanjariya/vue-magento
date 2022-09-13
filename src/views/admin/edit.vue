@@ -37,6 +37,7 @@
 import Template from './../core/template';
 import store from "./../../store/admin";
 import Admin from "./../../models/admin";
+import CoreModel from "./../../models/core/core";
 
 export default {
   name : 'ViewAdminEdit',
@@ -52,7 +53,7 @@ export default {
     }
   },
   mounted() {
-    Admin.setComponent(this)
+    Admin.setComponent(this).setAdminEndPoint()
     if(this.$route.params.action === 'edit' && this.$route.params.id) {
       const adminId = this.$route.params.id
       Admin.findAdmin(adminId)
