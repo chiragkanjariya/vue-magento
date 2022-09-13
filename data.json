@@ -26,7 +26,14 @@
       "name": "shubham patel",
       "phone": "84888",
       "email": "shubham@gmail.com",
-      "username": "shubham123"
+      "username": "shubham123",
+      "data": {
+        "id": 58,
+        "name": "shubham patel",
+        "phone": "84888",
+        "email": "shubham@gmail.com",
+        "username": "shubham123"
+      }
     }
   ],
   "categories": [
