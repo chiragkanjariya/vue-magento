@@ -82,12 +82,16 @@ export default {
       });
     },
   },
+  mounted() {
+    Category.setComponent(this)
+	},
   created() {
     this.setCategories();
   },
   methods: {
     setCategories() {
-      CoreModel.setCategoryData();
+      Category.setCategoriesEndPoint()
+      Category.setCategoryData();
       this.$nextTick(() => {});
     },
     sort(key) {
@@ -106,6 +110,7 @@ export default {
       this.sortDir = this.sortDir === "ASC" ? "DESC" : "ASC";
     },
     deleteCategory(id) {
+      Category.setCategoriesEndPoint();
       const action = Category.categorydelete(id);
       if (action) {
         this.setCategories();

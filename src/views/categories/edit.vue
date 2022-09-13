@@ -40,12 +40,14 @@ export default {
     Category.setComponent(this)
     if(this.$route.params.action === 'edit' && this.$route.params.id) {
       const categoryId = this.$route.params.id
+      Category.setCategoriesEndPoint()
       Category.editCategory(categoryId)
     }
 	},
   methods:{
     updateCategory() {
-      CoreModel.categoryupdate(this.category)
+      Category.setCategoriesEndPoint()
+      Category.categoryupdate(this.category)
       this.$router.push('/categories/list');
       this.getLayout().getAction().key = Math.random()*100;
     },
@@ -54,7 +56,8 @@ export default {
         id: this.getLayout()._uid,
         title : this.category.title,
       }
-      CoreModel.createCategories(params);
+      Category.setCategoriesEndPoint().
+      Category.createCategories(params);
       this.$router.push('/categories/list');
       this.getLayout().getAction().key = Math.random()*100;
     }
