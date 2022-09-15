@@ -62,13 +62,6 @@ export default {
     }
 	},
   methods:{
-    // setAdmin(){
-    //   let params = {
-    //     // id: this.getLayout().getParams('id')
-    //     id: this.getLayout()._uid
-    //   }
-    //   Admin.setComponent(this).setParams(params).setAdmin();
-    // },
     updateAdmin() {
       Admin.setAdminEndPoint()
       Admin.adminUpdate(this.data)
@@ -77,7 +70,6 @@ export default {
     },
     saveAdmin(){
       let params = {  
-        // id: this.getLayout().getParams('id'),
         id: this.getLayout()._uid,
         name : this.data.name,
         phone: this.data.phone,

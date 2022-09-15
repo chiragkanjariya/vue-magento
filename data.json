@@ -3,16 +3,16 @@
     {
       "id": 1,
       "name": "Ketan",
-      "username": "ketan2230",
+      "username": "ketanmf2230",
       "email": "kk@gmail.com",
-      "phone": "12345"
+      "phone": "1458"
     },
     {
-      "id": 92,
-      "name": "kkkkk",
-      "phone": "mmm",
-      "email": "mmmm",
-      "username": "mmm"
+      "id": 86,
+      "name": "shubham patel",
+      "phone": "457860",
+      "email": "shubha,@gmail.com",
+      "username": "shubham"
     }
   ],
   "categories": [
@@ -22,7 +22,7 @@
     },
     {
       "id": 21,
-      "title": "java"
+      "title": "prisma"
     },
     {
       "id": 78,

@@ -21,7 +21,7 @@ const Admin = {
 		CoreModel.delete(request_id)
 	},
 	adminUpdate(data = {}){
-		console.log("Data : ",data);
+		CoreModel.update(data)
 	}
 }
 
